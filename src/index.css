@@ -20,7 +20,7 @@ body::before {
   height: 500px;
   background: url("./images/orangeCat.png") no-repeat center / contain;
   opacity: 0.25;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -34,7 +34,7 @@ body:after {
   height: 500px;
   background: url("./images/blackCat.png") no-repeat center / contain;
   opacity: 0.25;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
 }
 
