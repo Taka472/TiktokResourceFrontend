@@ -61,11 +61,13 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
 }
 
-.utility-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+.utility-card:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .utility-card .icon {
@@ -76,4 +78,6 @@ body {
 .utility-card .label {
   font-size: 14px;
   font-weight: 600;
+  color: black;
+  text-decoration: none;
 }

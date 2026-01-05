@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './Dashboard.css';
 
 export default function Dashboard() {
@@ -6,7 +7,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/appointment/getDashboard")
+    fetch("http://192.168.0.101:5000/api/appointment/getDashboard")
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -59,25 +60,25 @@ export default function Dashboard() {
       </div>
 
       <div className="utilities">
-        <div className="utility-card">
+        <NavLink className="utility-card">
           <div className="icon">📅</div>
-          <div className="label">Lịch & Reviewer</div>
-        </div>
+          <div className="label">Lịch hẹn</div>
+        </NavLink>
 
-        <div className="utility-card">
+        <NavLink to="/payment" className="utility-card">
           <div className="icon">💰</div>
           <div className="label">Thanh toán</div>
-        </div>
+        </NavLink>
 
-        <div className="utility-card">
+        <NavLink to="/reviewer" className="utility-card">
           <div className="icon">👤</div>
           <div className="label">Quản lý Reviewer</div>
-        </div>
+        </NavLink>
 
-        <div className="utility-card">
+        <NavLink to="/statistic" className="utility-card">
           <div className="icon">📊</div>
           <div className="label">Thống kê</div>
-        </div>
+        </NavLink>
       </div>
     </div>
   );
