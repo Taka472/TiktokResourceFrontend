@@ -9,6 +9,7 @@ import Statistic from './pages/statistic/Statistic';
 import Payment from './pages/payment/Payment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <BrowserRouter>
     <Routes>

@@ -1,0 +1,79 @@
+body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+    margin: 10px;
+}
+
+.page-header {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+button {
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+}
+
+button.primary {
+  background: #ff6ea6;
+  color: white;
+}
+
+button.secondary {
+  background: #fff;
+  border: 1px dashed #ff6ea6;
+  color: #ff6ea6;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0;
+}
+
+.week-days {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  flex-direction: column;
+}
+
+.day-card {
+  min-width: 110px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.day-name {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.day-date {
+  font-size: 20px;
+  font-weight: bold;
+}

@@ -7,10 +7,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://192.168.0.101:5000/api/appointment/getDashboard")
+    fetch(process.env.REACT_APP_BACKEND + "/api/appointment/getDashboard")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       setAppointments(data);
       setLoading(false);
     })
@@ -55,12 +54,12 @@ export default function Dashboard() {
 
         <div className = "summary">
           <div>🗓️ Tuần này: <b>{appointments.weekCount}</b> lịch</div>
-          <div>💰 Chưa thanh toán: <b>{appointments.unpaidThisMonth}</b> người</div>
+          <div>💰 Đã thanh toán tháng này: <b>{appointments.paidThisMonth}</b> người</div>
         </div>
       </div>
 
       <div className="utilities">
-        <NavLink className="utility-card">
+        <NavLink to="/calendar" className="utility-card">
           <div className="icon">📅</div>
           <div className="label">Lịch hẹn</div>
         </NavLink>
