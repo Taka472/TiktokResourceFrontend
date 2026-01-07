@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Calendar.css";
+import AddReviewer from "../../form/addReviewer/addReviewer";
 
 function getStartOfWeek(date) {
     const d = new Date(date);
@@ -18,9 +19,19 @@ function getWeekDays(start) {
     })
 }
 
+function isToday(date) {
+    const today = new Date();
+    return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+    )
+}
+
 export default function Calendar() {
     const [todayAppointment, setTodayAppointment] = useState([]);
     const [weekStart, setWeekStart] = useState(getStartOfWeek(new Date()));
+    const [showAddReviewer, setShowAddReviewer] = useState(false);
 
     function changeWeek(days) {
         const newDate = new Date(weekStart);
@@ -44,7 +55,6 @@ export default function Calendar() {
         fetch(process.env.REACT_APP_BACKEND + "/api/appointment/getTodayAppointment")
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             setTodayAppointment(data.today);
         })
         .catch((err) => {
@@ -59,7 +69,17 @@ export default function Calendar() {
 
                 <div className="actions">
                     <button className="primary">➕ Thêm lịch</button>
-                    <button className="secondary">➕ Thêm reviewer</button>
+                    <button className="secondary" onClick = {() => setShowAddReviewer(true)}>➕ Thêm reviewer</button>
+                    {showAddReviewer && (
+                        <AddReviewer 
+                            onClose = {() => setShowAddReviewer(false)}
+                            onSubmit = {(data) => {
+                                console.log("Submit reviewer: ", data)
+                                //API call here
+                                setShowAddReviewer(false);
+                            }}
+                        />
+                    )}
                 </div>
             </div>
 
@@ -91,7 +111,7 @@ export default function Calendar() {
             </div>
             <div className="week-days">
                 {getWeekDays(weekStart).map((day) => (
-                    <div key={day.toISOString()} className="day-card">
+                    <div key={day.toISOString()} className={`day-card ${isToday(day) ? "today" : ""}`}>
                     <div className="day-name">
                         {day.toLocaleDateString("vi-VN", { weekday: "short" })}
                     </div>
