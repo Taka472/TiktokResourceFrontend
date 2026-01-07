@@ -130,10 +130,10 @@ button:active {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: #22c55e;      
+  background: #22c55e;  
   color: white;
-  padding: 14px 28px;       
-  border-radius: 24px;    
+  padding: 14px 28px;        
+  border-radius: 24px;       
   font-weight: 600;
   font-size: 14px;           
   max-width: 90%;            

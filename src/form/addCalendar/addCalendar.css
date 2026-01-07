@@ -75,3 +75,16 @@ button.primary {
 button.secondary {
   background: #eee;
 }
+
+.delete-btn {
+    background: #ef4444;   
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.delete-btn:active {
+    transform: scale(0.95);
+}

@@ -135,6 +135,35 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
 
                 <div className = "actions">
                     <button type = "button" className = "secondary" onClick={closeAnimation}>Hủy</button>
+                    
+                    {appointment && (
+                        <button
+                            type="button"
+                            className="delete-btn"
+                            onClick={async () => {
+                                if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
+
+                                try {
+                                    const res = await fetch(
+                                        process.env.REACT_APP_BACKEND + "/api/appointment/deleteAppointment/" + appointment._id,
+                                        { method: "DELETE" }
+                                    );
+
+                                    if (!res.ok) throw new Error("Xóa thất bại");
+
+                                    onSuccess();
+                                    closeAnimation();
+                                    alert("✅ Đã xóa thành công");
+                                } catch (err) {
+                                    console.error(err);
+                                    alert("Không thể xóa lịch");
+                                }
+                            }}
+                        >
+                            Xóa
+                        </button>
+                    )}
+                    
                     <button type = "submit" className = "primary">Lưu lịch</button>
                 </div>
             </form>

@@ -91,6 +91,10 @@ export default function Calendar() {
         })
     }, [weekStart, reloadWeek])
 
+    const handleDelete = async (id) => {
+        if (!window.confirm("Bạn có chắc muốn xóa cuộc hẹn này?")) return;
+    }
+
     return (
         <div className = "container">
             <div className = "page-header">
