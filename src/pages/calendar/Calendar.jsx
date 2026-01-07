@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Calendar.css";
 import AddReviewer from "../../form/addReviewer/addReviewer";
+import AddCalendar from "../../form/addCalendar/addCalendar";
 
 function getStartOfWeek(date) {
     const d = new Date(date);
@@ -32,6 +33,11 @@ export default function Calendar() {
     const [todayAppointment, setTodayAppointment] = useState([]);
     const [weekStart, setWeekStart] = useState(getStartOfWeek(new Date()));
     const [showAddReviewer, setShowAddReviewer] = useState(false);
+    const [showAddCalendar, setShowAddCalendar] = useState(false);
+    const [weekAppointments, setWeekAppointments] = useState([]);
+    const [reloadWeek, setReloadWeek] = useState(0);
+    const [editAppointment, setEditAppointment] = useState(null);
+    const [toast, setToast] = useState("");
 
     function changeWeek(days) {
         const newDate = new Date(weekStart);
@@ -48,7 +54,9 @@ export default function Calendar() {
     }
 
     function formatWeek(date) {
-        return formatDate(date) + " - " + formatDate(date.getDate() + 6);
+        const end = new Date(date);
+        end.setDate(end.getDate() + 6);
+        return formatDate(date) + " - " + formatDate(end);
     }
 
     useEffect(() => {
@@ -62,21 +70,56 @@ export default function Calendar() {
         })
     }, [])
 
+    useEffect(() => {
+        const startParam = weekStart.toISOString();
+
+        fetch(process.env.REACT_APP_BACKEND + "/api/appointment/getWeekAppointment?start=" + startParam)
+        .then((res) => res.json())
+        .then(data => {
+            const grouped = {};
+
+            data.forEach(a => {
+                const d = new Date(a.appointmentDate);
+                d.setHours(0, 0, 0, 0);
+                const key = d.toISOString();
+
+                if (!grouped[key]) grouped[key] = [];
+                grouped[key].push(a);
+            });
+
+            setWeekAppointments(grouped);
+        })
+    }, [weekStart, reloadWeek])
+
     return (
         <div className = "container">
             <div className = "page-header">
                 <h2>📅 Quản lý lịch</h2>
 
                 <div className="actions">
-                    <button className="primary">➕ Thêm lịch</button>
+                    <button className="primary" onClick = {() => setShowAddCalendar(true)}>➕ Thêm lịch</button>
+                    {(showAddCalendar || editAppointment) && (
+                        <AddCalendar 
+                            onClose = {() => {
+                                setShowAddCalendar(false); 
+                                setEditAppointment(null);
+                            }}
+                            onSuccess = {() => {
+                                setReloadWeek(prev => prev + 1);
+                                setToast("✅ Đã lưu thành công");
+                                setTimeout(() => setToast(""), 2000);
+                            }}
+                            appointment = {editAppointment}
+                        />
+                    )}
                     <button className="secondary" onClick = {() => setShowAddReviewer(true)}>➕ Thêm reviewer</button>
                     {showAddReviewer && (
                         <AddReviewer 
                             onClose = {() => setShowAddReviewer(false)}
-                            onSubmit = {(data) => {
-                                console.log("Submit reviewer: ", data)
-                                //API call here
-                                setShowAddReviewer(false);
+                            onSuccess = {() => {
+                                setReloadWeek(prev => prev + 1);
+                                setToast("✅ Đã lưu thành công");
+                                setTimeout(() => setToast(""), 2000);
                             }}
                         />
                     )}
@@ -110,21 +153,35 @@ export default function Calendar() {
                 <button onClick={() => changeWeek(7)}>➡️</button>
             </div>
             <div className="week-days">
-                {getWeekDays(weekStart).map((day) => (
-                    <div key={day.toISOString()} className={`day-card ${isToday(day) ? "today" : ""}`}>
-                    <div className="day-name">
-                        {day.toLocaleDateString("vi-VN", { weekday: "short" })}
-                    </div>
-                    <div className="day-date">
-                        {formatDate(day)}
-                    </div>
+                {getWeekDays(weekStart).map((day) => {
+                    const dayKey = new Date(day);
+                    dayKey.setHours(0, 0, 0, 0);
+                    return (
+                        <div key={day.toISOString()} className={`day-card ${isToday(day) ? "today" : ""}`}>
+                        <div className="day-name">
+                            {day.toLocaleDateString("vi-VN", { weekday: "short" })}
+                        </div>
+                        <div className="day-date">
+                            {formatDate(day)}
+                        </div>
 
-                    {/* {weekAppointments[day.getDay()]?.map(a => (
-                        <AppointmentCard key={a.id} {...a} />
-                    ))} */}
+                        {weekAppointments[dayKey.toISOString()]?.map(a => (
+                            <div key={a._id} className = "appointment-item"
+                                onClick={() => setEditAppointment(a)}
+                            >
+                                <div className = "time">
+                                    {new Date(a.appointmentDate).toLocaleTimeString("vi-VN", {
+                                        hour: "2-digit",
+                                        minute: "2-digit",
+                                    })}
+                                </div>
+                                <div className = "name">{a.reviewerId.nickTiktok}</div>
+                            </div>
+                        ))}
                     </div>
-                ))}
+                )})}
             </div>
+            {toast && <div className="toast-success">{toast}</div>}
         </div>
     )
 }

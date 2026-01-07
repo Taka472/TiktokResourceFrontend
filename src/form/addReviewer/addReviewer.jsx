@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./addReviewer.css";
 
-export default function AddReviewer({ onSubmit, onClose }) {
+export default function AddReviewer({ onClose, onSuccess }) {
     const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState({
         nickTiktok: "",
@@ -52,6 +52,7 @@ export default function AddReviewer({ onSubmit, onClose }) {
                 throw new Error("Create reviewer failed");
             }
 
+            onSuccess();
             closeAnimation();
         } catch (err) {
             console.error(err);
@@ -90,7 +91,7 @@ export default function AddReviewer({ onSubmit, onClose }) {
                 </label>
 
                 <label>
-                    Liên hệ
+                    Liên hệ <span className="asterisk">*</span>
                     <div className = "contact-row">
                         <select
                             name = "contactType"

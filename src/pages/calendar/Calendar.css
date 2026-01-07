@@ -93,3 +93,65 @@ button:active {
 .day-card.today .day-date {
   color: #d63384;
 }
+
+.appointment-item {
+  margin-top: 8px;
+  padding: 6px 8px;
+  background: #f9f9fb;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+.appointment-item .time {
+  font-weight: 600;
+
+  background: #fff;
+  padding: 3px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.appointment-item .name {
+  font-weight: 500;
+  color: #333;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast-success {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #22c55e;      
+  color: white;
+  padding: 14px 28px;       
+  border-radius: 24px;    
+  font-weight: 600;
+  font-size: 14px;           
+  max-width: 90%;            
+  white-space: nowrap;     
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  animation: fadeInUp 0.3s ease;
+  z-index: 999;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
