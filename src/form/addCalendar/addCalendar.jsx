@@ -54,6 +54,18 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
         }));
     };
 
+    const canDeleteCalendar = (appointment) => {
+        if (!appointment?.appointmentDate) return false;
+
+        const appointmentDate = new Date(appointment.appointmentDate);
+        const today = new Date();
+
+        // Set hôm nay về 00:00:00
+        today.setHours(23, 59, 59, 99);
+
+        return appointmentDate <= today;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -136,7 +148,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                 <div className = "actions">
                     <button type = "button" className = "secondary" onClick={closeAnimation}>Hủy</button>
                     
-                    {appointment && (
+                    {(appointment && canDeleteCalendar(appointment)) && (
                         <button
                             type="button"
                             className="delete-btn"

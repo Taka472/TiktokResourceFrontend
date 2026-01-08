@@ -69,7 +69,7 @@ export default function Calendar() {
         .catch((err) => {
             console.error(err);
         })
-    }, [])
+    }, [reloadWeek])
 
     useEffect(() => {
         const startParam = weekStart.toISOString();
