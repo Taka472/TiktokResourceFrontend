@@ -61,7 +61,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
         const today = new Date();
 
         // Set hôm nay về 00:00:00
-        today.setHours(23, 59, 59, 99);
+        today.setHours(0, 0, 0, 0);
 
         return appointmentDate > today;
     }
