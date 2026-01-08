@@ -1,29 +1,10 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Dashboard.css';
-import { getToken } from "firebase/messaging";
-import { messaging } from "../../firebase/firebase";
 
 export default function Dashboard() {
   const [appointments, setAppointments] = useState(null);
   const [loading, setLoading] = useState(true);
-  const enabled = Notification.permission === "granted";
-
-  async function enableNotification() {
-    // const permission = await Notification.requestPermission();
-    // if (permission !== "granted") return;
-
-    // const token = await getToken(messaging, {
-    //   vapidKey: "YOUR_VAPID_KEY",
-    // });
-
-    // // GỬI TOKEN LÊN BACKEND
-    // await fetch("/api/notification/save-token", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ token }),
-    // });
-  }
 
   useEffect(() => {
     fetch(process.env.REACT_APP_BACKEND + "/api/appointment/getDashboard")
@@ -98,10 +79,6 @@ export default function Dashboard() {
           <div className="label">Thống kê</div>
         </NavLink>
       </div>
-
-      <button className="primary notification" onClick={enableNotification}>
-        {enabled ?  "🔔 Tắt thông báo lịch hẹn" : "🔔 Bật thông báo lịch hẹn"}
-      </button>
     </div>
   );
 }
