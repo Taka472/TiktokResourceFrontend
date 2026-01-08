@@ -7,7 +7,7 @@ export default function Payment() {
                 <NavLink to="/" className="back-btn">
                     ⬅️
                 </NavLink>
-                <h2>📊 Thống kê</h2>
+                <h2>💰 Thanh toán</h2>
             </div>
         </div>
     )
