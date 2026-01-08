@@ -155,3 +155,11 @@ button:active {
     transform: translate(-50%, 0);
   }
 }
+
+.back-btn {
+  position: fixed;
+  font-size: 30px;
+  left: 3vw;
+  top: 3vw;
+  text-decoration: none;
+}

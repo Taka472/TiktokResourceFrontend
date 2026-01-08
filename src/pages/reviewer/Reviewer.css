@@ -1,0 +1,47 @@
+.reviewer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reviewer-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 15px;
+}
+
+.nick {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.status {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.status.has {
+  color: #2e7d32;
+}
+
+.status.soon {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.status.none {
+  color: #999;
+}

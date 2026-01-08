@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./addReviewer.css";
 
-export default function AddReviewer({ onClose, onSuccess }) {
+export default function AddReviewer({ onClose, onSuccess, reviewer }) {
     const [submitting, setSubmitting] = useState(false);
     const [form, setForm] = useState({
         nickTiktok: "",
@@ -15,6 +15,18 @@ export default function AddReviewer({ onClose, onSuccess }) {
     useEffect(() => {
         setVisible(true);
     }, [])
+
+    useEffect(() => {
+        if (reviewer) {
+            setForm({
+                nickTiktok: reviewer.nickTiktok || "",
+                followers: reviewer.followers || "",
+                contactType: reviewer.contact?.type || "zalo",
+                contactValue: reviewer.contact?.value || "",
+                realName: reviewer.name || "",
+            });
+        }
+    }, [reviewer]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,9 +45,15 @@ export default function AddReviewer({ onClose, onSuccess }) {
         e.preventDefault();
         setSubmitting(true);
 
+        const url = reviewer
+        ? `/api/reviewer/updateReviewer/${reviewer._id}`
+        : `/api/reviewer/addReviewer`;
+
+        const method = reviewer ? "PUT" : "POST";
+
         try {
-            const res = await fetch(process.env.REACT_APP_BACKEND + "/api/reviewer/addReviewer", {
-                method: "POST",
+            const res = await fetch(process.env.REACT_APP_BACKEND + url, {
+                method: method,
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({
                     nickTiktok: form.nickTiktok, 
@@ -59,6 +77,33 @@ export default function AddReviewer({ onClose, onSuccess }) {
             alert("Không thể thêm reviewer");
         } finally {
             setSubmitting(false);
+        }
+    };
+
+    const canDeleteReviewer = (reviewer) => {
+        if (!reviewer.latestAppointmentDate) return true;
+
+        const latest = new Date(reviewer.latestAppointmentDate);
+        const now = new Date();
+
+        return latest >= now;
+    };
+
+    const handleDelete = async () => {
+        if (!window.confirm("Bạn có chắc muốn xóa reviewer này?")) return;
+
+        try {
+            const res = await fetch(
+                process.env.REACT_APP_BACKEND + `/api/reviewer/deleteReviewer/${reviewer._id}`,
+                { method: "DELETE" }
+            );
+
+            if (!res.ok) throw new Error();
+
+            onSuccess();
+            closeAnimation();
+        } catch {
+            alert("Không thể xóa reviewer");
         }
     };
 
@@ -107,7 +152,6 @@ export default function AddReviewer({ onClose, onSuccess }) {
                             value = {form.contactValue}
                             onChange = {handleChange}
                             placeholder = "Thông tin liên hệ ở đây"
-                            required
                         />
                     </div>
                 </label>
@@ -124,6 +168,15 @@ export default function AddReviewer({ onClose, onSuccess }) {
 
                 <div className = "actions">
                     <button type="button" className = "secondary" onClick={closeAnimation}>Hủy</button>
+                    {reviewer && canDeleteReviewer(reviewer) && (
+                        <button
+                            type="button"
+                            className="delete-btn"
+                            onClick={handleDelete}
+                        >
+                            Xóa
+                        </button>
+                    )}
                     <button type="submit" className = "primary" disabled={submitting}>{submitting ? "Đang lưu..." : "Lưu"}</button>
                 </div>
             </form>

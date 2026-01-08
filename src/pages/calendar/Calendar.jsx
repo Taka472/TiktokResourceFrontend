@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./Calendar.css";
 import AddReviewer from "../../form/addReviewer/addReviewer";
 import AddCalendar from "../../form/addCalendar/addCalendar";
+import { NavLink } from "react-router-dom";
 
 function getStartOfWeek(date) {
     const d = new Date(date);
@@ -91,13 +92,12 @@ export default function Calendar() {
         })
     }, [weekStart, reloadWeek])
 
-    const handleDelete = async (id) => {
-        if (!window.confirm("Bạn có chắc muốn xóa cuộc hẹn này?")) return;
-    }
-
     return (
         <div className = "container">
             <div className = "page-header">
+                <NavLink to="/" className="back-btn">
+                    ⬅️
+                </NavLink>
                 <h2>📅 Quản lý lịch</h2>
 
                 <div className="actions">
