@@ -90,6 +90,21 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
 
             if (!res.ok) throw new Error("Lưu lịch thất bại");
 
+            const savedAppointment = await res.json();
+            console.log(savedAppointment);
+
+            if (savedAppointment) {
+                await fetch(process.env.REACT_APP_BACKEND + "/api/payment/createPayment/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        appointmentId: savedAppointment._id,
+                        deposit: 0,
+                        finalPayment: 0,
+                    })
+                })
+            }
+
             onSuccess();
             onClose();
         } catch (err) {

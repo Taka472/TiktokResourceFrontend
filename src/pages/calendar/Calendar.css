@@ -58,8 +58,8 @@ button:active {
 .week-days {
   display: flex;
   gap: 12px;
-  overflow-x: auto;
   flex-direction: column;
+  width: 100%;
 }
 
 .day-card {

@@ -39,6 +39,7 @@ export default function Calendar() {
     const [reloadWeek, setReloadWeek] = useState(0);
     const [editAppointment, setEditAppointment] = useState(null);
     const [toast, setToast] = useState("");
+    const [dummyData, setDummyData] = useState([]);
 
     function changeWeek(days) {
         const newDate = new Date(weekStart);
@@ -78,6 +79,7 @@ export default function Calendar() {
         .then((res) => res.json())
         .then(data => {
             const grouped = {};
+            setDummyData(data);
 
             data.forEach(a => {
                 const d = new Date(a.appointmentDate);
@@ -89,7 +91,8 @@ export default function Calendar() {
             });
 
             setWeekAppointments(grouped);
-        })
+        });
+
     }, [weekStart, reloadWeek])
 
     return (

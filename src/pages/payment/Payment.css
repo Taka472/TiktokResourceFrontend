@@ -1,0 +1,10 @@
+.payment-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
