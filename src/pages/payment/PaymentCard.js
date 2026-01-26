@@ -15,17 +15,16 @@ const payment_status = {
     }
 }
 
-export default function PaymentCard ({ data }) {
+export default function PaymentCard ({ data, onClick }) {
     const status = payment_status[data.paymentStatus];
-    console.log(status);
 
     return (
-        <div className = "payment-card">
+        <div className = "payment-card" onClick={onClick}>
             <div className = "payment-info">
                 <div className = "payment-name">
                     {data.reviewer.nickTiktok}
                 </div>
-                <div className = {`payment-status ${status.className}`}>
+                <div className = {`payment-status`} style={{color: status.color}}>
                     {status.label}
                 </div>
             </div>

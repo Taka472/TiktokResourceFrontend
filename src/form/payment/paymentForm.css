@@ -1,0 +1,85 @@
+.payment-image {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.image-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.image-block label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.image-block img {
+    width: 100%;
+    aspect-ratio: 1 / 2;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.image-block input[type="file"] {
+    font-size: 12px;
+}
+
+label {
+    margin: 0;
+}
+
+input {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background: #ff8ccf;
+  color: #fff;
+  width: 100%;    
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title {
+    flex: 1 1 auto;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.close-btn {
+    flex: 0 0 auto;
+    color: white;
+    background-color: #ff8ccf;
+    font-size: 20px;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+}

@@ -7,4 +7,111 @@
     align-items: center;
     flex-direction: row;
     box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    width: 100%;
+}
+
+.payment-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    gap: 7vw;
+}
+
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.payment-name {
+    font-weight: bold;
+}
+
+.month-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 12px 0;
+}
+
+.month-switch button {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-weight: bold;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.month-switch span {
+  font-weight: 600;
+}
+
+.payment-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    animation: overlayFadeIn 0.2s ease forwards;
+}
+
+.payment-overlay.closing {
+    animation: overlayFadeOut 0.2s ease forwards;
+}
+
+/* ===== Form ===== */
+.payment-form-wrapper {
+    width: 100%;
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    padding: 16px;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease forwards;
+}
+
+.payment-form-wrapper.closing {
+    animation: slideDown 0.25s ease forwards;
+}
+
+/* ===== Animations ===== */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        background: rgba(0,0,0,0);
+    }
+    to {
+        background: rgba(0,0,0,0.35);
+    }
+}
+
+@keyframes overlayFadeOut {
+    from {
+        background: rgba(0,0,0,0.35);
+    }
+    to {
+        background: rgba(0,0,0,0);
+    }
 }

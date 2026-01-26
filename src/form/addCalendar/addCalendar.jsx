@@ -54,18 +54,6 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
         }));
     };
 
-    const canDeleteCalendar = (appointment) => {
-        if (!appointment?.appointmentDate) return false;
-
-        const appointmentDate = new Date(appointment.appointmentDate);
-        const today = new Date();
-
-        // Set hôm nay về 00:00:00
-        today.setHours(0, 0, 0, 0);
-
-        return appointmentDate > today;
-    }
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -163,33 +151,31 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                 <div className = "actions">
                     <button type = "button" className = "secondary" onClick={closeAnimation}>Hủy</button>
                     
-                    {(appointment && canDeleteCalendar(appointment)) && (
-                        <button
-                            type="button"
-                            className="delete-btn"
-                            onClick={async () => {
-                                if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
+                    <button
+                        type="button"
+                        className="delete-btn"
+                        onClick={async () => {
+                            if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
 
-                                try {
-                                    const res = await fetch(
-                                        process.env.REACT_APP_BACKEND + "/api/appointment/deleteAppointment/" + appointment._id,
-                                        { method: "DELETE" }
-                                    );
+                            try {
+                                const res = await fetch(
+                                    process.env.REACT_APP_BACKEND + "/api/appointment/deleteAppointment/" + appointment._id,
+                                    { method: "DELETE" }
+                                );
 
-                                    if (!res.ok) throw new Error("Xóa thất bại");
+                                if (!res.ok) throw new Error("Xóa thất bại");
 
-                                    onSuccess();
-                                    closeAnimation();
-                                    alert("✅ Đã xóa thành công");
-                                } catch (err) {
-                                    console.error(err);
-                                    alert("Không thể xóa lịch");
-                                }
-                            }}
-                        >
-                            Xóa
-                        </button>
-                    )}
+                                onSuccess();
+                                closeAnimation();
+                                alert("✅ Đã xóa thành công");
+                            } catch (err) {
+                                console.error(err);
+                                alert("Không thể xóa lịch");
+                            }
+                        }}
+                    >
+                        Xóa
+                    </button>
                     
                     <button type = "submit" className = "primary">Lưu lịch</button>
                 </div>
