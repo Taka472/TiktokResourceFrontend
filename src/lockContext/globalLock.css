@@ -1,0 +1,31 @@
+.global-lock {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    font-size: 26px;
+    z-index: 2000;
+}
+
+.lock-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.lock-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    width: 280px;
+    text-align: center;
+}
+
+.lock-box input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+}

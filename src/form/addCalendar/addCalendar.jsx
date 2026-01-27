@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./addCalendar.css";
+import { useLock } from "../../lockContext/lockContext";
 
 export default function AddCalendar({ onClose, onSuccess, appointment }) {
     const [visible, setVisible] = useState(false);
@@ -11,6 +12,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
         date: "",
         time: "",
     });
+    const { locked } = useLock();
 
     useEffect(() => {
         setVisible(true);
@@ -116,6 +118,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                         value = {form.reviewerId}
                         onChange = {handleChange}
                         required
+                        disabled={locked}
                     >
                         <option value = "">-- Chọn reviewer --</option>
                         {reviewer.map(r => (
@@ -134,6 +137,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                         value = {form.date}
                         onChange = {handleChange}
                         required
+                        disabled={locked}
                     />
                 </label>
 
@@ -145,6 +149,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                         value = {form.time}
                         onChange = {handleChange}
                         required
+                        disabled={locked}
                     />
                 </label>
 
@@ -154,6 +159,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                     <button
                         type="button"
                         className="delete-btn"
+                        disabled={locked}
                         onClick={async () => {
                             if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
 
@@ -177,7 +183,7 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                         Xóa
                     </button>
                     
-                    <button type = "submit" className = "primary">Lưu lịch</button>
+                    <button type = "submit" disabled={locked} className = "primary">Lưu lịch</button>
                 </div>
             </form>
         </div>

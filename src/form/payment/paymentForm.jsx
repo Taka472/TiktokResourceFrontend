@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './paymentForm.css';
+import { useLock } from '../../lockContext/lockContext';
 
 export default function PaymentForm({ payment, onClose, onSave }) {
     const [deposit, setDeposit] = useState(0);
@@ -12,6 +13,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
     const [finalPreview, setFinalPreview] = useState(null);
 
     const [saving, setSaving] = useState(false);
+    const { locked } = useLock();
 
     useEffect(() => {
         if (payment) {
@@ -107,6 +109,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                 value = {formatMoney(deposit)}
                 onChange = {e => setDeposit(parseMoney(e.target.value))}
                 placeholder = "Tiền cọc ở đây nếu có"
+                disabled={locked}
             />
             
             <label>Tiền final</label>
@@ -115,6 +118,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                 value = {formatMoney(finalPayment)}
                 onChange = {e => setFinalPayment(parseMoney(e.target.value))}
                 placeholder = "Tiền final ở đây"
+                disabled={locked}
             />
 
             <div className = "payment-image">
@@ -129,6 +133,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                                 setDepositPreview(URL.createObjectURL(file))
                             }
                         }}
+                        disabled={locked}
                     />
 
                     {depositPreview && (
@@ -150,6 +155,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                                 setFinalPreview(URL.createObjectURL(file));
                             }
                         }}
+                        disabled={locked}
                     />
 
                     {finalPreview && (
@@ -160,7 +166,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                 </div>
             </div>
             {payment.paymentStatus === "pending" && (
-                <button className="save-btn" disabled={saving} onClick={handleSubmit}>
+                <button className="save-btn" disabled={saving || locked} onClick={handleSubmit}>
                     {saving ? "💾 Đang lưu" : "💾 Lưu thanh toán"}
                 </button>  
             )}

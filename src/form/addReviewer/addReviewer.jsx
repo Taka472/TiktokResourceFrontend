@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./addReviewer.css";
+import { useLock } from "../../lockContext/lockContext";
 
 export default function AddReviewer({ onClose, onSuccess, reviewer }) {
     const [submitting, setSubmitting] = useState(false);
@@ -11,6 +12,7 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
         realName: ""
     });
     const [visible, setVisible] = useState(false);
+    const { locked } = useLock();
 
     useEffect(() => {
         setVisible(true);
@@ -122,6 +124,7 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                         onChange = {handleChange}
                         placeholder = "Nick tiktok ở đây"
                         required
+                        disabled={locked}
                     />
                 </label>
 
@@ -132,6 +135,7 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                         value = {form.followers}
                         onChange = {handleChange}
                         placeholder = "Lượng follower ở đây"
+                        disabled={locked}
                     />
                 </label>
 
@@ -142,6 +146,7 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                             name = "contactType"
                             value = {form.contactType}
                             onChange = {handleChange}
+                            disabled={locked}
                         >
                             <option value = "zalo">Zalo</option>
                             <option value = "instagram">Ig</option>
@@ -152,6 +157,8 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                             value = {form.contactValue}
                             onChange = {handleChange}
                             placeholder = "Thông tin liên hệ ở đây"
+                            disabled={locked}
+                            style={{margin: "0px"}}
                         />
                     </div>
                 </label>
@@ -163,21 +170,23 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                         value = {form.realName}
                         onChange = {handleChange}
                         placeholder = "Tên tiktoker ở đây"
+                        disabled={locked}
                     />
                 </label>
 
                 <div className = "actions">
-                    <button type="button" className = "secondary" onClick={closeAnimation}>Hủy</button>
+                    <button type="button" className = "secondary" disabled={locked} onClick={closeAnimation}>Hủy</button>
                     {reviewer && canDeleteReviewer(reviewer) && (
                         <button
                             type="button"
                             className="delete-btn"
                             onClick={handleDelete}
+                            disabled={locked}
                         >
                             Xóa
                         </button>
                     )}
-                    <button type="submit" className = "primary" disabled={submitting}>{submitting ? "Đang lưu..." : "Lưu"}</button>
+                    <button type="submit" className = "primary" disabled={submitting || locked}>{submitting ? "Đang lưu..." : "Lưu"}</button>
                 </div>
             </form>
         </div>
