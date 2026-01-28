@@ -19,6 +19,11 @@ export default function Dashboard() {
     })
   }, [])
 
+  const formatMoney = (value) => {
+    if (value === null || value === undefined || value === "") return "";
+    return Number(value).toLocaleString("en-US");
+  };
+
   if (loading) {
     return <div className="important">Đang tải dữ liệu...</div>;
   }
@@ -54,8 +59,9 @@ export default function Dashboard() {
         </div>
 
         <div className = "summary">
-          <div>🗓️ Tuần này: <b>{appointments.weekCount}</b> lịch</div>
-          <div>💰 Đã thanh toán tháng này: <b>{appointments.paidThisMonth}</b> người</div>
+          <div>🗓️ Tuần này: <b>{appointments.weekCount} lịch</b></div>
+          <div>💰 Đã thanh toán tháng này: <b>{appointments.paidThisMonth} người</b></div>
+          <div>💸 Đã chi tháng này: <b>{formatMoney(appointments.totalPaid)} đồng</b></div>
         </div>
       </div>
 
