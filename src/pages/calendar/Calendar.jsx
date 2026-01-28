@@ -78,6 +78,7 @@ export default function Calendar() {
         .then((res) => res.json())
         .then(data => {
             const grouped = {};
+            console.log(data);
 
             data.forEach(a => {
                 const d = new Date(a.appointmentDate);
