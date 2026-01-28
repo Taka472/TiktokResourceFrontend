@@ -1,12 +1,12 @@
 import "./Payment.css";
 
 const payment_status = {
-    unpaid: {
+    pending: {
         label: "Chưa thanh toán",
         color: "#EF4444",
     },
-    pending: {
-        label: "Chờ xác thực",
+    deposit: {
+        label: "Đã cọc",
         color: "#F59E0B",
     },
     verified: {
