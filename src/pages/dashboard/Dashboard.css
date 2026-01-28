@@ -39,7 +39,7 @@ body {
 .summary {
   margin-top: 16px;
   display: grid;
-  gap: 8px;
+  gap: 12px;
 }
 
 .empty {

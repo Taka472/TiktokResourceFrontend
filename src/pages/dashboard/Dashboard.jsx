@@ -10,7 +10,6 @@ export default function Dashboard() {
     fetch(process.env.REACT_APP_BACKEND + "/api/appointment/getDashboard")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       setAppointments(data);
       setLoading(false);
     })
