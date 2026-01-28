@@ -28,10 +28,24 @@ export default function GlobalLock() {
         setPassword("");
     }
 
+    const lockIcon = () => (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M6 10V8a6 6 0 0112 0v2" stroke="currentColor" strokeWidth="2" />
+            <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="2" />
+        </svg>
+    )
+
+    const unlockIcon = () => (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M18 10V8a6 6 0 00-9.33-5" stroke="currentColor" strokeWidth="2"/>
+            <rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+    );
+
     return (
         <div>
             <div className = "global-lock" onClick = {() => {locked ? setShow(true) : lock()}}>
-                {locked ? "🔒" : "🔓"}
+                {locked ? lockIcon() : unlockIcon()}
             </div>
 
             {show && locked && (
