@@ -7,10 +7,9 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
     const [reviewer, setReviewer] = useState([]);
     const [form, setForm] = useState({
         reviewerId: "",
-        deposit: "",
-        finalPayment: "",
         date: "",
         time: "",
+        paymentStatus: "",
     });
     const { locked } = useLock();
 
@@ -30,9 +29,10 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
             const timeStr = d.toTimeString().slice(0, 5);
 
             setForm({
-                reviewerId: appointment.reviewerId._id,
+                reviewerId: appointment.reviewer._id,
                 date: dateStr,
                 time: timeStr,
+                paymentStatus: appointment.paymentStatus,
             });
         }
     }, [appointment]);
@@ -156,32 +156,34 @@ export default function AddCalendar({ onClose, onSuccess, appointment }) {
                 <div className = "actions">
                     <button type = "button" className = "secondary" onClick={closeAnimation}>Hủy</button>
                     
-                    <button
-                        type="button"
-                        className="delete-btn"
-                        disabled={locked}
-                        onClick={async () => {
-                            if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
+                    {form.paymentStatus === "pending" && (
+                        <button
+                            type="button"
+                            className="delete-btn"
+                            disabled={locked}
+                            onClick={async () => {
+                                if (!window.confirm("Bạn có chắc muốn xóa lịch này?")) return;
 
-                            try {
-                                const res = await fetch(
-                                    process.env.REACT_APP_BACKEND + "/api/appointment/deleteAppointment/" + appointment._id,
-                                    { method: "DELETE" }
-                                );
+                                try {
+                                    const res = await fetch(
+                                        process.env.REACT_APP_BACKEND + "/api/appointment/deleteAppointment/" + appointment._id,
+                                        { method: "DELETE" }
+                                    );
 
-                                if (!res.ok) throw new Error("Xóa thất bại");
+                                    if (!res.ok) throw new Error("Xóa thất bại");
 
-                                onSuccess();
-                                closeAnimation();
-                                alert("✅ Đã xóa thành công");
-                            } catch (err) {
-                                console.error(err);
-                                alert("Không thể xóa lịch");
-                            }
-                        }}
-                    >
-                        Xóa
-                    </button>
+                                    onSuccess();
+                                    closeAnimation();
+                                    alert("✅ Đã xóa thành công");
+                                } catch (err) {
+                                    console.error(err);
+                                    alert("Không thể xóa lịch");
+                                }
+                            }}
+                        >
+                            Xóa
+                        </button>
+                    )}
                     
                     <button type = "submit" disabled={locked} className = "primary">Lưu lịch</button>
                 </div>

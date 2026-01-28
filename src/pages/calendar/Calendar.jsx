@@ -180,7 +180,7 @@ export default function Calendar() {
                                         minute: "2-digit",
                                     })}
                                 </div>
-                                <div className = "name">{a.reviewerId.nickTiktok}</div>
+                                <div className = "name">{a.reviewer.nickTiktok}</div>
                             </div>
                         ))}
                     </div>

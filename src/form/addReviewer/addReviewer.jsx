@@ -150,6 +150,8 @@ export default function AddReviewer({ onClose, onSuccess, reviewer }) {
                         >
                             <option value = "zalo">Zalo</option>
                             <option value = "instagram">Ig</option>
+                            <option value = "gmail">Gmail</option>
+                            <option value = "tiktok">Tiktok</option>
                         </select>
 
                         <input 
