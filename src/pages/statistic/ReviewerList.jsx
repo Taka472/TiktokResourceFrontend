@@ -12,8 +12,8 @@ export default function ReviewerList({ reviewers }) {
         <div className = "reviewer-list">
             {reviewers.map((r, idx) => (
                 <div className = "reviewer-card" key={idx}>
-                    <div classname = "reviewer-name"><b>{r.reviewerName}</b></div>
-                    <div className = "reviewer-ratio">Tỉ số: {r.ratio.toFixed(3)}</div>
+                    <div className = "reviewer-name"><b>{r.reviewerName}</b></div>
+                    <div className = "reviewer-ratio">Tỉ lệ: {Number(r.ratio).toFixed(3)}</div>
                     <div className = "reviewer-meta">
                         <span>Followers: {r.followers}</span>
                         <span>Tổng thanh toán: {formatMoney(r.totalPayment)}</span>
