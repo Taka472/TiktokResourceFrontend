@@ -80,6 +80,16 @@ export default function Dashboard() {
           <div className="label">Quản lý Reviewer</div>
         </NavLink>
 
+        <NavLink to="/coins" className="utility-card">
+          <div className="icon">🪙</div>
+          <div className="label">Quản lý mua Coins</div>
+        </NavLink>
+
+        <NavLink to="/coins" className="utility-card">
+          <div className="icon">📋</div>
+          <div className="label">Quản lý chi tiêu khác</div>
+        </NavLink>
+
         <NavLink to="/statistic" className="utility-card">
           <div className="icon">📊</div>
           <div className="label">Thống kê</div>

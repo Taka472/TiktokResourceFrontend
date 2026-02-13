@@ -165,7 +165,7 @@ export default function PaymentForm({ payment, onClose, onSave }) {
                     )}
                 </div>
             </div>
-            {payment.paymentStatus === "pending" && (
+            {payment.paymentStatus !== "verified" && (
                 <button className="save-btn" disabled={saving || locked} onClick={handleSubmit}>
                     {saving ? "💾 Đang lưu" : "💾 Lưu thanh toán"}
                 </button>  

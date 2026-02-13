@@ -9,6 +9,8 @@ import Statistic from './pages/statistic/Statistic';
 import Payment from './pages/payment/Payment';
 import { LockProvider } from './lockContext/lockContext';
 import GlobalLock from './lockContext/globalLock';
+import Coins from './pages/coins/Coins';
+import OtherPayment from './pages/otherPayment/OtherPayment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,6 +24,8 @@ root.render(
         <Route path="/payment" element={<Payment />} />
         <Route path="/reviewer" element={<Reviewer />} />
         <Route path="/statistic" element={<Statistic />} />
+        <Route path="/coins" element={<Coins />} />
+        <Route path="/other" elements={<OtherPayment />} />
       </Routes>
     </BrowserRouter>
   </LockProvider>
